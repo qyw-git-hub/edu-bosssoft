@@ -18,8 +18,9 @@
     "vuepress-theme-vdoing": "^1.12.9"
   },
   "dependencies": {
+    "async-validator": "1.11.5",
     "element-ui": "2.15.13",
     "highlight.js": "^11.11.1",
-    "async-validator": "1.11.5"
+    "moment": "^2.30.1"
   }
 }

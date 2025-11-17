@@ -1,5 +1,6 @@
 module.exports = {
   base: '/',
+  dest: 'public',
   lang: 'zh-CN',
   title: '智付校园整合文档',
   port: 3600,
