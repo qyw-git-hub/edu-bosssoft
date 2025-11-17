@@ -1,0 +1,25 @@
+{
+  "name": "bosssoft-edu-press",
+  "version": "0.0.1",
+  "description": "博思智付校园前端在线文档",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  },
+  "author": "秦雅雯",
+  "license": "ISC",
+  "devDependencies": {
+    "@vuepress/plugin-register-components": "^1.9.10",
+    "sass-loader": "^8.0.2",
+    "vuepress": "^1.9.10",
+    "vuepress-plugin-copy-code": "^0.0.1",
+    "vuepress-theme-vdoing": "^1.12.9"
+  },
+  "dependencies": {
+    "element-ui": "2.15.13",
+    "highlight.js": "^11.11.1",
+    "async-validator": "1.11.5"
+  }
+}
