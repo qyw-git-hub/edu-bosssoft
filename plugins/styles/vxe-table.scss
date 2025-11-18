@@ -1,0 +1,26 @@
+// vxe-table 样式覆盖
+html, body, * {
+  font-family: PingFangSC-Regular, PingFang SC;
+}
+// 操作区
+.ops-wrapper {
+  padding: 16px 0;
+}
+
+// 表格
+::v-deep .vxe-table {
+  font-family: inherit;
+  // 
+  th {
+    font-weight: normal;
+  }
+  &.border--full .vxe-header--column {
+    background-color: #f5f7fa;
+    color: #909399;
+    font-weight: normal;
+  }
+  // 选择框边框1像素
+  .vxe-cell--checkbox .vxe-checkbox--icon:before {
+    border-width: 1px;
+  }
+}

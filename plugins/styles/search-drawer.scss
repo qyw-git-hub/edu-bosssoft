@@ -1,0 +1,138 @@
+// 更多搜索的样式公共文件 - Lvxx - form 
+/**
+  <el-drawer class="__search_drawer">
+  注：size不需要了
+*/
+.__search_drawer {
+  // 控制
+  // width: 40%;
+  ::v-deep .el-drawer {
+    min-width: 300px;
+  }
+  /**
+    el-drawer 内容的最外层加上此class
+    <el-drawer class="__search_drawer">
+      <div class="__search_content"></div>
+    </el-drawer>
+  */
+  .__search_content_wrapper {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+  }
+  .__search_content {
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px 20px;
+    overflow: auto;
+    height: 100%;
+  }
+  /**
+    给 el-form 加上
+    目的是令搜索框栏处于最底下
+    el-form-item内的输入项（如el-input）
+    需要令其宽度为100%
+  */
+  .__search_main {
+    flex: 1;
+    // 修改label的字体颜色
+    ::v-deep .el-form-item__label {
+      color: #1A3C5E;
+    }
+  }
+  /**
+    搜索框组：与el-form同级
+    为搜索、重置等按钮的容器
+  */
+  .__search_btn_group {
+    display: flex;
+    .__search_btn {
+      flex: 1;
+    }
+  }
+  .__search_fixed_bottom {
+    padding-bottom: 32px;
+  }
+  .__search_fixed_bottom .__search_btn_group {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+  }
+  // 更改组件内抽屉的header样式
+  ::v-deep .el-drawer__header {
+    padding: 20px;
+    margin-bottom: 20px;
+    color: #1a3c5e;
+    border-bottom: 1px solid #dadada;
+  }
+}
+
+// 通用模态框
+.__dialog {
+  .el-dialog__header {
+    padding: 32px 0 24px 40px;
+    border-bottom: 1px solid #E0E6EB;
+    .el-dialog__title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+    }
+  }
+  .__dialog_body {
+    padding: 24px 0;
+    text-align: center;
+    font-size: 18px;
+    color: #333;
+    line-height: 25px;
+
+  }
+  .__dialog_footer {
+    padding-bottom: 30px;
+  }
+  .__dialog_btn {
+    padding: 8px 42px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+    &.default {
+      color: #777;
+    }
+    &.primary {
+      color: #fff;
+    }
+  }
+}
+// 通用模态框 - 无标题
+.__dialog_no_title {
+  .el-dialog__header {
+    padding: 0;
+  }
+  .__dialog_body {
+    padding: 10px 10px 0;
+    text-align: center;
+    font-size: 18px;
+    color: #333;
+    line-height: 25px;
+    .el-textarea__inner::placeholder {
+      color: #999;
+    }
+  }
+  .__dialog_footer {
+    display: block;
+    padding-bottom: 20px;
+  }
+  .__dialog_btn {
+    padding: 8px 42px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+    &.default {
+      color: #777;
+    }
+    &.primary {
+      color: #fff;
+    }
+  }
+}

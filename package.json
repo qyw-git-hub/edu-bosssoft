@@ -1,26 +1,63 @@
 {
-  "name": "bosssoft-edu-press",
-  "version": "0.0.1",
-  "description": "博思智付校园前端在线文档",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
-  },
+  "name": "bosssoft-edu",
+  "version": "1.0.14",
+  "private": false,
   "author": "秦雅雯",
-  "license": "ISC",
-  "devDependencies": {
-    "@vuepress/plugin-register-components": "^1.9.10",
-    "sass-loader": "^8.0.2",
-    "vuepress": "^1.9.10",
-    "vuepress-plugin-copy-code": "^0.0.1",
-    "vuepress-theme-vdoing": "^1.12.9"
+  "keywords": [
+    "博思软件公用组件"
+  ],
+  "main": "dist/bosssoft-edu.cjs.js",
+  "module": "dist/bosssoft-edu.esm.js",
+  "browser": "dist/bosssoft-edu.umd.js",
+  "files": [
+    "dist/*/**",
+    "README.md",
+    "plugins"
+  ],
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "lib": "vue-cli-service build --target lib --name bosssoft-edu -dest lib plugins/index.js"
   },
   "dependencies": {
-    "async-validator": "1.11.5",
+    "@form-create/element-ui": "2.5.37",
+    "@wchbrad/vue-easy-tree": "1.0.12",
+    "autoprefixer": "^9.5.1",
+    "core-js": "^3.6.5",
     "element-ui": "2.15.13",
-    "highlight.js": "^11.11.1",
-    "moment": "^2.30.1"
-  }
+    "vue": "^2.6.11",
+    "vuex": "^3.1.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.21.0",
+    "@vue/cli-plugin-babel": "~4.5.11",
+    "@vue/cli-plugin-eslint": "~4.5.11",
+    "@vue/cli-service": "~4.5.11",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "sass": "^1.32.13",
+    "sass-loader": "~8.0.2",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
 }

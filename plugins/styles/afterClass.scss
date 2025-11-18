@@ -1,0 +1,72 @@
+.btn {
+  padding: 12px 42px;
+}
+
+.btn_small {
+  padding: 8px 24px;
+}
+
+.search-label {
+  display: inline-block;
+  color: #777;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.pagination {
+  margin-top: 15px;
+  text-align: right;
+}
+
+.text-right {
+  text-align: right;
+}
+
+// 重写步骤条样式
+.steps {
+  width: 65%;
+  margin: 0 auto 24px;
+  .el-step__head {
+    .el-step__icon {
+      width: 32px;
+      height: 32px;
+    }
+    &.is-finish {
+      font-weight: 600;
+      color: #F7F8FA;
+      border-color: #BDDDFB;
+      border-width: 2px;
+      .el-step__icon {
+        background: $primary;
+      }
+      .el-step__line {
+      background: linear-gradient(90deg, #BDDDFB 0%, #F7F8FA 100%);
+      }
+    }
+    &.is-process, &.is-wait {
+      color: #7a7a7a;
+      border-color: #F7F8FA;
+      .el-step__icon {
+        background: #F7F8FA;
+      }
+      .el-step__icon-inner {
+        font-weight: normal;
+      }
+    }
+    .el-step__line {
+      height: 4px;
+      background: #F7F8FA;
+    }
+  }
+  .el-step__title {
+    color: #777;
+    font-weight: normal;
+    &.is-finish {
+      color: $primary;
+      font-weight: 600;
+    }
+  }
+  .el-step__icon.is-text {
+    border-width: 4px;
+  }
+}

@@ -1,0 +1,119 @@
+// sidebar
+$menuText:#bfcbd9;
+$menuActiveText:#409EFF;
+$subMenuActiveText:#f4f4f5; //https://github.com/ElemeFE/element/issues/12951
+
+$menuBg:#304156;
+$menuHover:#263445;
+
+$subMenuBg:#1f2d3d;
+$subMenuHover:#001528;
+
+$sideBarWidth: 210px; 
+// 上下布局上面导航高度
+$navTopHeight: 60px;
+// 左右布局时上面导航的高度
+$navLeftTopHeight: 40px;
+
+$cancel: #AFB5CE;
+
+// the :export directive is the magic sauce for webpack
+// https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
+:export {
+  menuText: $menuText;
+  menuActiveText: $menuActiveText;
+  subMenuActiveText: $subMenuActiveText;
+  menuBg: $menuBg;
+  menuHover: $menuHover;
+  subMenuBg: $subMenuBg;
+  subMenuHover: $subMenuHover;
+  sideBarWidth: $sideBarWidth;
+  navTopHeight: $navTopHeight;
+  navLeftTopHeight: $navLeftTopHeight;
+  --color-primary: $--color-primary
+}
+
+// ========================================= 改版新增 ===============================================
+// 主题色
+$primary: #4254FF; // 主色
+$primary-1: #ECEEFF; // 面
+$primary-2: #D9DDFF; // 面悬停
+$primary-3: #B3BBFF; // 禁用
+$primary-4: #8498FF; // 特殊场景
+$primary-5: #6876FF; // 悬浮
+$primary-7: #3543cc; // 点击
+$primary-8: #072ca6; // 特殊场景
+$primary-9: #1A2266; // 特殊场景
+$primary-10: #0D1133; // 特殊场景
+
+// 中性色
+$gray: #747899; // 主色
+$gray-1: #FFFFFF;
+$gray-2: #F6F7FA;
+$gray-3: #E4E6F3;
+$gray-4: #D7D9ED;
+$gray-5: #B7BBD4;
+$gray-7: #404566;
+$gray-8: #2A2E47;
+$gray-9: #1E2031;
+$gray-10: #101119;
+
+// 功能色 - 成功
+$success: #17B491; // 主色
+$success-1: #E9FBEF;
+$success-2: #D3F6DF;
+$success-3: #A7EDBF;
+$success-4: #7CE49F;
+$success-5: #50DB7F;
+$success-7: #1DA84C;
+$success-8: #167E39;
+$success-9: #0E5426;
+$success-10: #072A13;
+
+// 功能色 - 错误
+// $danger: #EB3C53; // 主色
+$danger: #DB4E4E; // 主色
+$danger-1: #FDEBEE;
+$danger-2: #FBDBDD;
+$danger-3: #F7B1BA;
+$danger-4: #F38A98;
+$danger-5: #EF6375;
+$danger-7: #EC3042;
+$danger-8: #8D2432;
+$danger-9: #5E1821;
+$danger-10: #2F0C11;
+
+// 功能色 - 警告
+$warning: #FB6F1D; // 主色
+$warning-1: #FFF2E5;
+$warning-2: #FFE5CC;
+$warning-3: #FFCB99;
+$warning-4: #FFB166;
+$warning-5: #FF9733;
+$warning-7: #CC6400;
+$warning-8: #994B00;
+$warning-9: #663200;
+$warning-10: #331900;
+
+// 功能色 - info
+$info: #F4F6FA; // 主色
+$info-1: #E9ECF4;
+$info-2: #D4D9EA;
+$info-3: #BEC7DF;
+$info-4: #A9B4D4;
+$info-5: #7180B0;
+$info-7: #47557D;
+$info-8: #394464;
+$info-9: #2B334B;
+$info-10: #1C2232;
+
+// 文字色
+$primary-text: #436FF6; // 普通提示类文字或链接
+$success-text: #31D29E; // 安全通过的提示
+$warning-text: #E48E4F; // 警告提示
+$danger-text: #E25C5E; // 错误提示
+$title-text: #0B0E1B; // 标题
+$normal-text: #3A3E58; // 正文
+$explanatory-text: #6C718D; // 注释、提示
+$explanatory-text-1: #6C7DA3; // 注释、提示
+$disabled-text: #A7ACC2; // 弱提示、禁用文字

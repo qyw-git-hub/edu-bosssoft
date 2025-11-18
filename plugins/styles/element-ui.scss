@@ -1,0 +1,192 @@
+// cover some element-ui styles
+
+.el-breadcrumb__inner,
+.el-breadcrumb__inner a {
+  font-weight: 400 !important;
+}
+
+.el-upload {
+  input[type='file'] {
+    display: none !important;
+  }
+}
+.el-upload__input {
+  display: none;
+}
+// refine element ui upload
+.upload-container {
+  .el-upload {
+    width: 100%;
+
+    .el-upload-dragger {
+      width: 100%;
+      height: 200px;
+    }
+  }
+}
+
+// to fixed https://github.com/ElemeFE/element/issues/2461
+.el-dialog {
+  transform: none;
+  left: 0;
+  position: relative;
+  margin: 0 auto;
+
+  // 设置弹窗最大高度及超出添加滚动条
+  .el-dialog__body {
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+}
+
+// dropdown
+.el-dropdown-menu {
+  a {
+    display: block;
+  }
+}
+
+// tooltip
+.el-tooltip__popper {
+  max-width: 600px;
+}
+
+// to fix el-date-picker css style
+.el-range-separator {
+  box-sizing: content-box;
+}
+
+// el-switch -------------------- start --------------
+// .el-switch__core {
+//   width: 55px !important;
+//   height: 20px !important;
+// }
+// //开关内区域
+// .el-switch__label {
+//   position: absolute;
+//   color: $disabled-text;
+//   // 圆球在左的文字设置
+//   &--left {
+//     color: $disabled-text !important;
+//     z-index: 1;
+//     right: 1px;
+//     text-align: right;
+//   }
+//   //圆球在右的文字设置
+//   &--right {
+//     color: $gray-1 !important;
+//     z-index: 1;
+//     left: 1px;
+//   }
+//   span {
+//     display: none;
+//   }
+//   &.is-active {
+//     span {
+//       display: block;
+//       line-height: 20px;
+//       user-select: none;
+//       font-weight: 200;
+//       font-size: 12px;
+//     }
+//   }
+// }
+// el-switch -------------------- end --------------
+
+// el-tooltip -------------------- start --------------
+// .vxe-table--tooltip-wrapper {
+//   border-radius: 10px !important;
+//   border: 1px solid $gray-3 !important;
+//   background-color: $gray-1;
+// }
+// .el-tooltip__popper.is-light {
+//   border: 1px solid $gray-3 !important;
+//   background-color: $gray-1;
+//   border-radius: 10px;
+//   box-shadow: 2px 2px 4px -2px rgba(0, 0, 0, 0.2);
+// }
+// .el-tooltip__popper.is-light[x-placement^='top'] .popper__arrow {
+//   border-top-color: $gray-3 !important;
+// }
+// .el-tooltip__popper.is-light[x-placement^='bottom'] .popper__arrow {
+//   border-bottom-color: $gray-4 !important;
+// }
+// .el-tooltip__popper.is-light[x-placement^='left'] .popper__arrow {
+//   border-left-color: $gray-3 !important;
+// }
+// .el-tooltip__popper.is-light[x-placement^='right'] .popper__arrow {
+//   border-right-color: $gray-3 !important;
+// }
+// el-tooltip -------------------- end --------------
+
+// el-checkbox -------------------- start --------------
+// .el-checkbox__inner::after {
+//   border-bottom: 2px solid $gray-1 !important;
+//   border-right: 2px solid $gray-1 !important;
+// }
+// .el-checkbox.is-disabled.is-checked .el-checkbox__inner::after {
+//   border-color: $primary-3 !important;
+// }
+// el-checkbox -------------------- end --------------
+
+// el-table -------------------- start --------------
+.el-table .el-table__cell {
+  padding: 7px 0;
+  font-weight: normal;
+}
+
+.el-table th.el-table__cell {
+  background: #f5f7fa;
+  color: #909399;
+}
+
+.el-table td.el-table__cell,
+.el-table th.el-table__cell.is-leaf {
+  border-color: #ebeef5;
+}
+// el-table -------------------- end --------------
+
+.el-message-box__message {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.el-drawer {
+  min-width: 860px;
+  .el-drawer__close-btn {
+    font-size: 16px;
+  }
+}
+
+.el-tabs__item {
+  height: 50px;
+  padding: 5px 20px 0;
+  font-size: 16px;
+}
+
+.el-tabs__nav-wrap::after {
+  height: 1px;
+}
+
+.is--checked.vxe-checkbox,
+.is--checked.vxe-checkbox .vxe-checkbox--icon,
+.is--checked.vxe-custom--checkbox-option,
+.is--checked.vxe-custom--checkbox-option .vxe-checkbox--icon,
+.is--checked.vxe-export--panel-column-option,
+.is--checked.vxe-export--panel-column-option .vxe-checkbox--icon,
+.is--checked.vxe-table--filter-option,
+.is--checked.vxe-table--filter-option .vxe-checkbox--icon,
+.is--indeterminate.vxe-checkbox,
+.is--indeterminate.vxe-checkbox .vxe-checkbox--icon,
+.is--indeterminate.vxe-custom--checkbox-option,
+.is--indeterminate.vxe-custom--checkbox-option .vxe-checkbox--icon,
+.is--indeterminate.vxe-export--panel-column-option,
+.is--indeterminate.vxe-export--panel-column-option .vxe-checkbox--icon,
+.is--indeterminate.vxe-table--filter-option,
+.is--indeterminate.vxe-table--filter-option .vxe-checkbox--icon,
+.vxe-table--render-default .is--checked.vxe-cell--checkbox,
+.vxe-table--render-default .is--checked.vxe-cell--checkbox .vxe-checkbox--icon,
+.vxe-table--render-default .is--indeterminate.vxe-cell--checkbox,
+.vxe-table--render-default .is--indeterminate.vxe-cell--checkbox .vxe-checkbox--icon {
+  color: $primary !important;
+}

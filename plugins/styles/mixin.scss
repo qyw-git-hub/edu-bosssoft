@@ -1,0 +1,94 @@
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin scrollBar {
+  &::-webkit-scrollbar-track-piece {
+    background: #d3dce6;
+  }
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #99a9bf;
+    border-radius: 20px;
+  }
+}
+
+@mixin relative {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+
+@mixin step {
+  position: relative;
+  background: #FBFBFD;
+  border: 1px solid #D2D6E4;
+  padding-left: 10px;
+  padding-top: 18px;
+  .el-timeline-item {
+    margin-left: 150px;
+    padding-bottom: 20px;
+  }
+  .date {
+    position: absolute;
+    top: 1px;
+    left: -145px;
+    display: block;
+    font-size: 12px;
+    color: #8b8fa0;
+  }
+  .el-timeline-item__content {
+    color: #282b3d;
+  }
+  .el-timeline-item__tail{
+    border-left: 1px dashed #E3E5EE;
+  }
+  ::v-deep .el-timeline-item__timestamp {
+    color: #282b3d;
+    &::before {
+      content: "处理意见:";
+      color: #8b8fa0;
+    }
+  }
+ ::v-deep .el-timeline-item__node {
+    background: rgba(53, 124, 236, 0.2);
+    border: 1px solid #357cec;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &::after {
+      content: "";
+      background: #357cec;
+      width: 40%;
+      height: 40%;
+      border-radius: 50%;
+    }
+  }
+  ::v-deep .timelineRed {
+    .el-timeline-item__node {
+      background: rgba(172, 15, 52, 0.2);
+      border-color: #e53630;
+      &::after {
+        background: #e53630;
+      }
+    }
+  }
+ ::v-deep .timelineGreen {
+    .el-timeline-item__node {
+      background: rgba(103, 194, 58, 0.2);
+      border-color: #67c23a;
+      &::after {
+        background: #67c23a;
+      }
+    }
+  }
+}

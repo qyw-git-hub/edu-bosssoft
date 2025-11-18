@@ -1,0 +1,29 @@
+// 教培
+@import './vxe-table.scss';
+
+.text-overflow2 {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+// 定义翻页样式
+.pagination {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: right;
+  .btn-prev, .btn-prev:disabled,
+  .el-pager .number,
+  .btn-next {
+    margin: 0 0.25em;
+    background-color: #f4f4f5;
+    color: #bfbfbf;
+    border-radius: 0.25em;
+  }
+  .el-pager .number.active {
+    color: #fff;
+    background-color: $primary;
+  }
+}
