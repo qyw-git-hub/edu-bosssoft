@@ -5,7 +5,7 @@
         v-for="(item, index) in getParams.data"
         :key="index"
         :timestamp="item[getParams.defineProps.time]"
-        :class="`timeline_item timeline_${getClass(item).color}`"
+        :class="['timeline_item', `timeline_${getClass(item).color}`, disabledIndex && index > disabledIndex && 'timeline_disabled']"
       >
         <div class="process_title">{{ item[getParams.defineProps.title] }}</div>
         <div
@@ -31,6 +31,10 @@ export default {
     defaultDot: {
       type: Boolean,
       default: false,
+    },
+    disabledIndex: {
+      type: Number,
+      default: null,
     },
     params: {
       type: Object,
