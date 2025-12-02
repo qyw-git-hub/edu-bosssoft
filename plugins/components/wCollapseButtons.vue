@@ -17,13 +17,13 @@ export default {
   },
   render() {
     const btnList = []
-    const els = document.querySelectorAll(`.wTableMoreBtns${this.index} .el-button`)
+    const els = document.querySelectorAll(`.wCollapseButtonList${this.index} .el-button`)
     this.btnEls = els || []
     els.forEach((el, i) => {
       btnList[i] = { label: el.innerText, disabled: el.disabled }
     })
-    return [<div class="inline_block wTableMoreBtn">
-      <div class={['wTableMoreBtns', 'wTableMoreBtns' + this.index]}>
+    return [<div class="inline_block wCollapseButtons">
+      <div class={['wCollapseButtonList', 'wCollapseButtonList' + this.index]}>
         {this.$slots.default}
       </div>
       <el-dropdown props={this.$attrs} placement="bottom-start" on={{

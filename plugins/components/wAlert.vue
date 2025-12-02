@@ -20,7 +20,7 @@ export default {
       ...this.$attrs,
       ...this.$props,
     }
-    return <el-alert class={[props.type]} on={on} props={{ ...props, title: '' }}>
+    return <el-alert class={['w-alert', props.type]} on={on} props={{ ...props, title: '' }}>
       {[
         this.isShowIcon(props),
         <span>{props.title || this.$slots.default}</span>,

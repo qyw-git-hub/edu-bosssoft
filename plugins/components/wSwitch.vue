@@ -13,6 +13,10 @@ export default {
       type: String,
       default: ''
     },
+    size: {
+      type: String,
+      default: 'middle'
+    },
     hideActiveText: Boolean,
     hideInactiveText: Boolean,
   },
@@ -32,7 +36,7 @@ export default {
     return (
       <span>
         <el-switch
-          class={[limitValue[this.limit] || 'w-switch']}
+          class={[limitValue[this.limit] || 'w-switch', `w-switch-${this.size}`]}
           active-color={"#4254FF"}
           on={on}
           props={props}

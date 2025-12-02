@@ -28,7 +28,7 @@
             @click="onChecked('reverse')"
           >反选</el-button>
           <el-button
-            v-if="treeAttrs.hideChildBtn"
+            v-if="!treeAttrs.hideChildBtn"
             type="primary"
             size="mini"
             :disabled="disabled_child"

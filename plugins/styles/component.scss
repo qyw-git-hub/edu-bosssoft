@@ -215,7 +215,7 @@
 }
 
 /* 提示窗 */
-.el-alert {
+.w-alert {
   overflow: unset;
   .el-alert__description {
     margin: 0;
@@ -418,6 +418,12 @@
   .el-switch__label.is-active {
     display: block;
     width: auto !important;
+  }
+  &.w-switch-small {
+    &.el-switch .el-switch__core {
+      width: 40px !important;
+      text-align: initial;
+    }
   }
   &.el-switch .el-switch__core {
     width: 55px !important;
@@ -1653,7 +1659,7 @@
 }
 
 /* 更多按钮 */
-.wTableMoreBtn {
+.wCollapseButtons {
   .more_btn_border {
     &::after {
       content: "";
@@ -1666,7 +1672,7 @@
       transform: translateY(-50%);
     }
   }
-  .wTableMoreBtns {
+  .wCollapseButtonList {
     display: none;
   }
   .btn {

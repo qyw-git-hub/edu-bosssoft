@@ -75,6 +75,7 @@ export default {
         'filter-node-method': this.filterNode,
         'check-strictly': true,
         isShowProgress: false,
+        hideChildBtn: false,
         ...this.treeParams,
         /* 虚拟滚动需设置高度即生效 */
         height: isVirtual ? this.treeParams.treeHeight || '300px' : 'auto', //虚拟滚动区域高度
