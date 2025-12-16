@@ -23,7 +23,7 @@
  * update 2024-02-22
  *    增加表格默认参数 `showHeaderOverflow`，表格头部超出自动省略号
  */
-import { isObjectNotEmpty } from '../utils/common.js';
+import { isObjectNotEmpty, restoreSummaryFormatting, copyText } from '../utils/common.js';
 export default {
   components: {
     MultipleLeft: () => import('../components/wTreeSelect/multipleLeft.vue'),
@@ -59,6 +59,8 @@ export default {
         };
       }
     },
+    /* 页脚下拉框 */
+    footerSelection: [Object, Boolean],
     /* 当出现内外层都有w-panel，例如tab页签情况，在内层加上inline参数可适配 */
     inline: {
       type: Boolean,
@@ -80,6 +82,7 @@ export default {
         },
         'highlight-current-row': true,
         'header-cell-style': { align: 'center' },
+        'footer-cell-style': { cursor: 'default' },
         headerAlign: 'center',
         border: true,
         round: true,
@@ -165,9 +168,6 @@ export default {
   },
   methods: {
     containerSlots() {
-      /* 判断是否有左侧树或者左侧容器 */
-      const isLeftTree = Boolean(this.$slots.leftPanel || this.leftTreeParams);
-
       /* 判断是否有左侧leftTable插槽 */
       const haveLeftTable = () => {
         const { leftPanelWidth } = this.params || {}
@@ -206,112 +206,120 @@ export default {
         ]
       }
 
-      /* 左侧树插槽 */
-      const leftTreeSlots = () => {
-        const { hidden, loading, isSingle, isExpand, width, class: className, slots, props, filterValue, filterInfo, parentValue, data, on, isDrag, isDragActive } = this.leftTreeParams || {}
-        const isShowDragLine = () => { //是否显示拖拽线
-          if (isDrag) {
+      if (Boolean(this.leftTreeParams) && isObjectNotEmpty(this.leftTreeParams)) { /* 判断是否有左侧树 */
+        /* 获取左侧树参数 */
+        const { hidden, width } = this.leftTreeParams || {}
+
+        /* 左侧树插槽 */
+        const leftTreeSlots = () => {
+          const { hidden, loading, isSingle, isExpand, width, class: className, slots, props, filterValue, filterInfo, parentValue, data, on, isDrag, isDragActive } = this.leftTreeParams || {}
+          const isShowDragLine = () => { //是否显示拖拽线
+            if (isDrag) {
+              return [
+                <div class={['wPanelLeftPanelDragBorder', isDragActive && 'wPanelLeftPanelDragBorderActive']} on={{
+                  mousedown: (e) => { //竖线拖拽事件
+                    if (!this.isShowLeftTree) {
+                      this.leftTreeWidth = 20
+                      this.isShowLeftTree = true
+                    }
+                    this.$set(this.leftTreeParams, 'isDragActive', true)
+                    /* 开启全局鼠标移动事件 */
+                    document.addEventListener("mousemove", this.onLeftPanelMouseMove);
+                    this.leftPanelScreenX = e.screenX;
+                  },
+                }}></div>
+              ]
+            }
+          }
+          /* 获取树类型，分单选和多选树 */
+          const getTreeNode = () => {
+            if (isSingle) {
+              return [<SingleLeft class={['multipleLeft', 'mt12', className]}
+                props={{
+                  ...props,
+                  value: parentValue
+                }}
+                data={data}
+                on={on}
+                scopedSlots={slots}
+              >
+              </SingleLeft>]
+            }
             return [
-              <div class={['wPanelLeftPanelDragBorder', isDragActive && 'wPanelLeftPanelDragBorderActive']} on={{
-                mousedown: (e) => { //竖线拖拽事件
-                  if (!this.isShowLeftTree) {
-                    this.leftTreeWidth = 20
-                    this.isShowLeftTree = true
-                  }
-                  this.$set(this.leftTreeParams, 'isDragActive', true)
-                  /* 开启全局鼠标移动事件 */
-                  document.addEventListener("mousemove", this.onLeftPanelMouseMove);
-                  this.leftPanelScreenX = e.screenX;
-                },
-              }}></div>
+              <MultipleLeft class={['multipleLeft', 'mt12', className]}
+                props={{
+                  ...props,
+                  filterValue,
+                  filterInfo,
+                  parentValue
+                }}
+                data={data}
+                on={on}
+                scopedSlots={slots}
+              >
+                {this.$slots.leftTreeCondition}
+              </MultipleLeft>
             ]
           }
-        }
-        /* 获取树类型，分单选和多选树 */
-        const getTreeNode = () => {
-          if (isSingle) {
-            return [<SingleLeft class={['multipleLeft', 'mt12', className]}
-              props={{
-                ...props,
-                value: parentValue
-              }}
-              data={data}
-              on={on}
-              scopedSlots={slots}
-            >
-            </SingleLeft>]
-          }
           return [
-            <MultipleLeft class={['multipleLeft', 'mt12', className]}
-              props={{
-                ...props,
-                filterValue,
-                filterInfo,
-                parentValue
+            <div
+              v-loading={loading}
+              element-loading-spinner="el-icon-loading"
+              class={['wPanelLeftPanel', !this.isShowLeftTree ? 'active' : '']}
+              style={{
+                display: hidden ? 'none' : 'block',
+                width: !this.isShowLeftTree ? 'auto' : this.leftTreeWidth + 'px',
+                'border-right': isDrag || !this.isShowLeftTree ? 'none' : '1px solid #e5e8f2',
+                'border-left': isDrag || this.isShowLeftTree ? 'none' : '1px solid #e5e8f2',
               }}
-              data={data}
-              on={on}
-              scopedSlots={slots}
             >
-              {this.$slots.leftTreeCondition}
-            </MultipleLeft>
+              <p class="multipleLeftArrowIcon"
+                on={{
+                  click: () => {
+                    this.isShowLeftTree = !this.isShowLeftTree
+                    isExpand && isExpand(this.isShowLeftTree)
+                    /* 点击按钮自动恢复默认宽度 */
+                    if (this.isShowLeftTree) {
+                      this.leftTreeWidth = width || 276
+                    }
+                  }
+                }}><i class="el-icon-d-arrow-left" /></p>
+              {getTreeNode()}
+              {isShowDragLine()}
+            </div>
           ]
         }
+
+        /* 设置右侧面板内容 */
+        const rightPanelContent = () => {
+          let styl = {}
+          if (hidden) {
+            styl = { width: '100%' }
+          } else {
+            if (!this.isShowLeftTree) {
+              styl = { width: 'calc(100% - 45px)' }
+            } else {
+              styl = { width: `calc(100% - ${this.leftTreeWidth}px - 20px` }
+            }
+          }
+          return [<div style={styl} class="wPanelRightPanel"> {slotsMethod()} </div>]
+        }
+
+        return [leftTreeSlots(), rightPanelContent()]
+
+      } else if (Boolean(this.$slots.leftPanel)) { /* 判断是否有左侧容器 */
+        const { leftPanelWidth } = this.params || {}
+
         return [
-          <div
-            v-loading={loading}
-            element-loading-spinner="el-icon-loading"
-            class={['wPanelLeftPanel', !this.isShowLeftTree ? 'active' : '']}
-            style={{
-              display: hidden ? 'none' : 'block',
-              width: !this.isShowLeftTree ? 'auto' : this.leftTreeWidth + 'px',
-              'border-right': isDrag || !this.isShowLeftTree ? 'none' : '1px solid #e5e8f2',
-              'border-left': isDrag || this.isShowLeftTree ? 'none' : '1px solid #e5e8f2',
-            }}
-          >
-            <p class="multipleLeftArrowIcon"
-              on={{
-                click: () => {
-                  this.isShowLeftTree = !this.isShowLeftTree
-                  isExpand && isExpand(this.isShowLeftTree)
-                  /* 点击按钮自动恢复默认宽度 */
-                  if (this.isShowLeftTree) {
-                    this.leftTreeWidth = width || 276
-                  }
-                }
-              }}><i class="el-icon-d-arrow-left" /></p>
-            {getTreeNode()}
-            {isShowDragLine()}
+          <div class="leftPanel" style={{ width: (leftPanelWidth || 276) + 'px' }}>
+            {this.$slots.leftPanel}
+          </div>,
+          <div class="wPanelRightPanel" style={{ width: `calc(100% - ${(leftPanelWidth || 276)}px - 20px` }}>
+            {slotsMethod()}
           </div>
         ]
       }
-      if (isLeftTree) { /* 左侧树 */
-        const { leftPanelWidth } = this.params || {}
-        const { hidden, width } = this.leftTreeParams || {}
-        const isHaveLeftTree = isObjectNotEmpty(this.leftTreeParams)
-        return [
-          isHaveLeftTree ?
-            leftTreeSlots() :
-            <div class="leftPanel" style={{ width: (leftPanelWidth || 276) + 'px' }}>
-              {this.$slots.leftPanel}
-            </div>
-          ,
-          <div
-            style={
-              (isHaveLeftTree && hidden) ?
-                { width: '100%' } :
-                (isHaveLeftTree && !hidden && width) ?
-                  { width: `calc(100% - ${width || 276}px - 20px` } :
-                  !this.isShowLeftTree ?
-                    { width: 'calc(100% - 45px)' } :
-                    { width: `calc(100% - ${this.leftTreeWidth}px - 20px` }
-            }
-            class="wPanelRightPanel"
-          >
-            {slotsMethod()}
-          </div >
-        ]
-      }
+
       return slotsMethod();
     },
 
@@ -356,7 +364,8 @@ export default {
         return this.$slots.table;
       } else if (this.params) {
         const on = {
-          ...this.$listeners
+          ...this.$listeners,
+          'footer-cell-dblclick': this.onFooterCellDblclick
         };
         const props = {
           ...this.$attrs,
@@ -413,35 +422,68 @@ export default {
       return <filterHeaders ref="filterHeaders" props={props} on={fh.on} />;
     },
 
+    /* 页脚下拉框 */
+    footerSelectionBox() {
+      if (!this.footerSelection) {
+        return ''
+      }
+      return [
+        <div class="wFooter_selection_box">
+          <span class={['mr10', 'c_394464', this.footerSelection.textClass]}>{this.footerSelection.text}</span>
+          <el-select
+            v-model={this.footerSelection.value}
+            placeholder="请选择"
+            size="small"
+            popper-class="wFooter_selection_box"
+            props={this.footerSelection.props}
+            on={this.footerSelection.on}
+          >
+            {
+              this.footerSelection.data.map((m, i) => (
+                <el-option key={i} label={m.label} value={m.value}>
+                  <p class="fw c_394464 ellipsis1">{m.label}</p>
+                  <p class="f12 c_6c7da3 mt5 ellipsis1">{m.desc}</p>
+                </el-option>
+              ))
+            }
+          </el-select>
+        </div>
+      ]
+    },
+
     /* 页码插槽 */
     paginationBox() {
-      if (this.pagination) {
-        const sizeChange = limit => {
-          this.$emit('pagination', { page: this.pagination.page, limit });
-        };
-        const currentChange = page => {
-          this.$emit('pagination', { page, limit: this.pagination.limit });
-        };
-        return (
-          <div class="wPanelPagination">
-            {this.$slots.pageFooter}
-            <el-pagination
-              background
-              layout="total, sizes, prev, pager, next, jumper"
-              page-sizes={this.pagination.pageSizes || [10, 20, 30, 50, 100, 300, 500]}
-              props={{
-                ...this.pagination,
-                'current-page': this.pagination.page,
-                'page-size': this.pagination.limit
-              }}
-              on={{
-                'size-change': sizeChange,
-                'current-change': currentChange
-              }}
-            />
-          </div>
-        );
+      if (!this.pagination) {
+        return ''
       }
+      //切换每页条数时触发
+      const sizeChange = limit => {
+        this.$emit('pagination', { page: this.pagination.page, limit });
+      };
+      //切换页码时触发
+      const currentChange = page => {
+        this.$emit('pagination', { page, limit: this.pagination.limit });
+      };
+      //渲染分页组件
+      const paginationEl = [
+        this.footerSelectionBox(),
+        this.$slots.pageFooter,
+        <el-pagination
+          background
+          layout="total, sizes, prev, pager, next, jumper"
+          page-sizes={this.pagination.pageSizes || [10, 20, 30, 50, 100, 300, 500]}
+          props={{
+            ...this.pagination,
+            'current-page': this.pagination.page,
+            'page-size': this.pagination.limit
+          }}
+          on={{
+            'size-change': sizeChange,
+            'current-change': currentChange
+          }}
+        />
+      ]
+      return [<div class="wPanelPagination">{paginationEl}</div>]
     },
     /* 重新获取表格高度 */
     doLayout() { },
@@ -463,5 +505,19 @@ export default {
         this.leftTreeWidth = 500
       }
     },
+
+    /* 双击复制页脚金额 */
+    onFooterCellDblclick(data) {
+      const { cell, items, $columnIndex } = data
+      const value = items[$columnIndex]
+      if (value && /\d/.test(value)) {
+        cell.classList.add('dblclick_active')
+        copyText(restoreSummaryFormatting(value), '复制成功!', true);
+        setTimeout(() => {
+          cell.classList.remove('dblclick_active')
+        }, 300);
+      }
+      this.$emit('footer-cell-dblclick', data);
+    }
   }
 };

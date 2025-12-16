@@ -144,3 +144,37 @@ export function toThousands(num = 0, accuracy = 2, isOmitEnd = false) {
   }
   return intPart.replace(/\d{1,3}(?=(\d{3})+$)/g, '$&,') + '.' + decPart;
 }
+
+/* 金额还原 */
+export function restoreSummaryFormatting(value) {
+  if (!value) {
+    return 0.00;
+  }
+  let str = String(value).replace(/,/g, '');
+  let multiple = 1;
+
+  // 处理“万”单位
+  if (str.includes('万')) {
+    multiple = 10000;
+    str = str.replace('万', '');
+  }
+
+  const num = Number(str) * multiple;
+  return isNaN(num) ? 0.00 : num.toFixed(2)
+}
+
+/**
+ * 复制普通文本
+ * @param {String|Number} text - 要复制的文字
+ * @param {String} successMsg - 成功提示的文字
+ * @param {Boolean} showTips - 是否显示成功的提示
+ */
+export function copyText(text, successMsg = '复制成功', showTips = true) {
+  const oInput = document.createElement('input');
+  oInput.value = text;
+  document.body.appendChild(oInput);
+  oInput.select(); // 选择对象;
+  document.execCommand('Copy'); // 执行浏览器复制命令
+  document.body.removeChild(oInput);
+  showTips && wTips.success(successMsg);
+}

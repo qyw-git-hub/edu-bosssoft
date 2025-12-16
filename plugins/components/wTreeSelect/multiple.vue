@@ -59,13 +59,20 @@
           </el-tooltip>
         </div>
         <div class="wDeptSelect_multiple_tree">
+          <p
+            :style="{
+            'margin-left': placeholderConfig.left + 'px',
+            'height': '0',
+            'opacity': '0',
+            }"
+          >{{placeholderConfig.label}}</p>
           <vue-easy-tree ref="tree" v-bind="treeAttrs" v-on="$listeners" @check="onCheckTree">
             <div slot-scope="{ node, data }">
               <el-tooltip :content="node.label" :disabled="longTooltip" placement="top-start">
                 <span
                   :class="['wDeptSelect-over-ellipsis', data.class]"
                   :style="{ 
-                    width: popoverAttrs.width - 100 + 'px', 
+                    width: '690px', 
                     color: disabledBtnConfig.visible && data[disabledBtnConfig.name] ? '#B5BED1' : '' 
                   }"
                   @mouseover="onMouseOverToolTip"
@@ -81,7 +88,6 @@
       <div slot="reference" class="pointer">
         <!-- 不以el-select直接作为el-popover触发器，会导致更新回显异常 -->
         <el-select
-          @click.native="isShowPop"
           ref="mulSelect"
           :popper-append-to-body="false"
           popper-class="wDeptSelect_multiple_select"
@@ -92,6 +98,7 @@
             !selectAttrs.clearable && selectOption.length <= retainNum ? 'none_click' : '',
             !selectAttrs['collapse-tags'] && selectAttrs.limit == 1 ? 'wTreeSelect_no_collapse_tags' : ''
           ]"
+          @click.native="isShowPop"
           @change="onChangeSelect"
           @remove-tag="onClearSelct(selectOption, selection)"
           @clear="onClearSelct([], [])"

@@ -60,6 +60,11 @@ export default {
       disabledConfig: {
         isChecked: false
       }, // 禁用数据默认列表，用于切换
+      placeholderConfig: { 
+        // 占位文字配置
+        label: '',
+        left: ''
+      }
     };
   },
   computed: {
@@ -98,7 +103,7 @@ export default {
     /* 气泡框的参数 */
     popoverAttrs() {
       return {
-        width: this.disabledBtnConfig.visible ? '380' : '320',
+        'popper-class': 'w-tree-select-popover',
         placement: 'bottom-start',
         trigger: 'manual',
         ...this.popoverParams
@@ -196,6 +201,13 @@ export default {
         this.visible && this.filterArray();
       }
     },
+    /* 获取字符宽度 */
+    getLabelWidth(e, label) {
+      if (this.placeholderConfig.label.length <= label.length) {
+        this.placeholderConfig.left = 46 + ((e.level - 1) * 18)
+        this.placeholderConfig.label = label
+      }
+    },
     /* 将当前数据转为平级 */
     filterArray() {
       return new Promise(resolve => {
@@ -232,6 +244,8 @@ export default {
                 if (e.containSubLevels) {
                   stack.push({ data: children, parentNode: e, level: e.level }); // 将子节点压入栈
                 }
+                // 计算当前节点的宽度
+                this.getLabelWidth(e, label)
               });
               // 每帧最多执行 16ms（约 60 FPS）
               if (performance.now() - startTime > 16) {

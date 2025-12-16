@@ -22,11 +22,11 @@
 .overflow_hidden {
   overflow: hidden;
 }
-.gap12{
- gap: 12px;
+.gap12 {
+  gap: 12px;
 }
 
-.flex_shrink_0{
+.flex_shrink_0 {
   flex-shrink: 0;
 }
 .flex_start {
@@ -220,14 +220,17 @@
 .c_747899 {
   color: #747899;
 }
-.c_3a3e58{
+.c_6c7da3 {
+  color: #6c7da3;
+}
+.c_3a3e58 {
   color: #3a3e58;
 }
 .c_warning {
   color: #e6a23c;
 }
-.c_7180B0{
-  color: #7180B0;
+.c_7180B0 {
+  color: #7180b0;
 }
 .c_gray {
   color: $gray;
@@ -238,7 +241,7 @@
 .c_gray-10 {
   color: $gray-10;
 }
-.c_606266{
+.c_606266 {
   color: #606266;
 }
 .mr2 {
@@ -453,7 +456,7 @@
 .p15 {
   padding: 15px;
 }
-.p20{
+.p20 {
   padding: 20px;
 }
 .pd5 {
@@ -738,16 +741,16 @@
 .c_222640 {
   color: #222640;
 }
-.c_394464{
+.c_394464 {
   color: #394464;
 }
-.c_0E1119{
-  color: #0E1119;
+.c_0E1119 {
+  color: #0e1119;
 }
-.c_FF7D00{
-  color: #FF7D00;
+.c_FF7D00 {
+  color: #ff7d00;
 }
-.line_height1-5{
+.line_height1-5 {
   line-height: 1.5;
 }
 .line-height20 {
@@ -757,10 +760,10 @@
 .line-height22 {
   line-height: 22px;
 }
-.border{
-  border: 1px solid #E9ECF4;
+.border {
+  border: 1px solid #e9ecf4;
 }
-.border_radius8{
+.border_radius8 {
   border-radius: 8px;
 }
 .el-dialog__wrapper {
@@ -880,7 +883,7 @@
 }
 
 .popBox::before {
-  content: '';
+  content: "";
   width: 0;
   height: 0;
   border: 8px solid;
@@ -891,7 +894,7 @@
 }
 
 .popBox::after {
-  content: '';
+  content: "";
   width: 0;
   height: 0;
   border: 7px solid;
@@ -975,7 +978,7 @@
   .el-date-editor.el-input__inner {
     width: 100%;
   }
-  .el-select{
+  .el-select {
     width: 100%;
   }
 }
@@ -1139,9 +1142,9 @@
 .refresh_icon {
   width: 32px;
   height: 32px;
-  background: #F4F6FA;
+  background: #f4f6fa;
   border-radius: 4px;
-  border: 1px solid #BEC7DF;
+  border: 1px solid #bec7df;
   display: flex !important;
   align-items: center;
   justify-content: center;
@@ -1174,7 +1177,8 @@
 }
 
 .viewFormItem {
-  > .el-input__inner, >.el-textarea__inner {
+  > .el-input__inner,
+  > .el-textarea__inner {
     border: 0;
     background: #f6f7fa;
     border-radius: 4px;
@@ -1191,7 +1195,7 @@
   .el-tabs__nav {
     border: 0 !important;
   }
-  .el-tabs__header{
+  .el-tabs__header {
     margin: 0 0 8px;
   }
   .el-tabs__item {
@@ -1209,7 +1213,7 @@
       }
     }
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       left: 4px;
       right: 4px;
