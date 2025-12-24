@@ -1,6 +1,4 @@
-/* 当前版本号 1.0.0-rc.18 */
-
-
+import { Message } from 'element-ui';
 /**
  * @param {*} obj 
  * @returns 
@@ -150,13 +148,21 @@ export function restoreSummaryFormatting(value) {
   if (!value) {
     return 0.00;
   }
-  let str = String(value).replace(/,/g, '');
+  let str = String(value).replace(/,/g, '')
   let multiple = 1;
 
   // 处理“万”单位
   if (str.includes('万')) {
     multiple = 10000;
     str = str.replace('万', '');
+  }
+
+  const numberMatch = str.match(/(-?\d+\.?\d*)/);
+  if (numberMatch) {
+    str = numberMatch[0];
+  } else {
+    // 如果没有找到数字，返回0
+    return 0.00;
   }
 
   const num = Number(str) * multiple;
@@ -176,5 +182,5 @@ export function copyText(text, successMsg = '复制成功', showTips = true) {
   oInput.select(); // 选择对象;
   document.execCommand('Copy'); // 执行浏览器复制命令
   document.body.removeChild(oInput);
-  showTips && wTips.success(successMsg);
+  showTips && Message.success(successMsg);
 }

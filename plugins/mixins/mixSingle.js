@@ -101,7 +101,7 @@ export default {
     popoverAttrs() {
       /* 气泡框的参数 */
       return {
-        width: '300',
+        'popper-class': 'wDeptSelect_single_popper',
         placement: 'bottom-start',
         trigger: 'manual',
         ...this.popoverParams

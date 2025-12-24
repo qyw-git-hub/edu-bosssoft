@@ -88,7 +88,7 @@
         >
           <el-tooltip :content="node.label" :disabled="longTooltip" placement="top-start">
             <span
-              :class="['wDeptSelect-over-ellipsis', data.class]"
+              :class="['wDeptSelect-over-ellipsis','pt4', data.class]"
               :style="{ 
                 width: treeAttrs.isShowProgress ? 'calc(100% - 60px)' : '100%',
                 color: disabledBtnConfig.visible && data[disabledBtnConfig.name] ? '#B5BED1' : '' 

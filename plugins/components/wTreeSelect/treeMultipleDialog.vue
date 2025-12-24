@@ -40,7 +40,7 @@
         <div slot-scope="{ node, data }">
           <el-tooltip :content="node.label" :disabled="longTooltip" placement="top-start">
             <span
-              :class="['wDeptSelect-over-ellipsis', data.class]"
+              :class="['wDeptSelect-over-ellipsis','pt4', data.class]"
               @mouseover="onMouseOverToolTip"
             >
               <slot name="tree_expend" :node="data"></slot>

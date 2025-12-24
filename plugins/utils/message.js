@@ -11,7 +11,7 @@ class WTips {
     this.messageBox.alert(message, title, {
       confirmButtonText: '确定',
       type: 'error',
-      callback: action => {
+      callback: () => {
         options.callback && options.callback();
       },
       ...options
@@ -21,7 +21,7 @@ class WTips {
     this.messageBox.alert(message, title, {
       confirmButtonText: '确定',
       type: 'warning',
-      callback: action => {
+      callback: () => {
         options.callback && options.callback();
       },
       ...options

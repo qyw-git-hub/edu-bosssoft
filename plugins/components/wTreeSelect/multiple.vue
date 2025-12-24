@@ -62,17 +62,17 @@
           <p
             :style="{
             'margin-left': placeholderConfig.left + 'px',
+            'margin-right': '16px',
             'height': '0',
             'opacity': '0',
             }"
           >{{placeholderConfig.label}}</p>
           <vue-easy-tree ref="tree" v-bind="treeAttrs" v-on="$listeners" @check="onCheckTree">
-            <div slot-scope="{ node, data }">
+            <div class="wDeptSelect-over-ellipsis w100" slot-scope="{ node, data }">
               <el-tooltip :content="node.label" :disabled="longTooltip" placement="top-start">
                 <span
-                  :class="['wDeptSelect-over-ellipsis', data.class]"
+                  :class="['wDeptSelect-over-ellipsis', 'w100', 'pt4', data.class]"
                   :style="{ 
-                    width: '690px', 
                     color: disabledBtnConfig.visible && data[disabledBtnConfig.name] ? '#B5BED1' : '' 
                   }"
                   @mouseover="onMouseOverToolTip"
