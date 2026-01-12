@@ -65,6 +65,7 @@
             'margin-right': '16px',
             'height': '0',
             'opacity': '0',
+            'width': getStringVisualWidth(placeholderConfig.label) + 'px',
             }"
           >{{placeholderConfig.label}}</p>
           <vue-easy-tree ref="tree" v-bind="treeAttrs" v-on="$listeners" @check="onCheckTree">

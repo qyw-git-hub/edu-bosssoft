@@ -5,7 +5,7 @@
         v-for="(item, index) in getParams.data"
         :key="index"
         :timestamp="item[getParams.defineProps.time]"
-        :class="['timeline_item', `timeline_${getClass(item).color}`, disabledIndex && index > disabledIndex && 'timeline_disabled']"
+        :class="['timeline_item', `timeline_${getClass(item).color}`, Number(disabledIndex) && index > disabledIndex && 'timeline_disabled']"
       >
         <div class="process_title">{{ item[getParams.defineProps.title] }}</div>
         <div
@@ -16,7 +16,10 @@
         <div
           v-if="item[getParams.defineProps.remark]"
           :class="['remark', getClass(item).color]"
-        >{{ getParams.defineProps.remarkTitle }}{{ item[getParams.defineProps.remark] }}</div>
+        >
+        <p>{{ getParams.defineProps.remarkTitle }}{{ item[getParams.defineProps.remark] }}</p>
+        <slot name="remark" :item="item"></slot>
+        </div>
       </el-timeline-item>
     </el-timeline>
     <el-empty v-else :image-size="100" :description="getParams.emptyText || '暂无审核信息'" />

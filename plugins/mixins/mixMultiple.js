@@ -60,7 +60,7 @@ export default {
       disabledConfig: {
         isChecked: false
       }, // 禁用数据默认列表，用于切换
-      placeholderConfig: { 
+      placeholderConfig: {
         // 占位文字配置
         label: '',
         left: ''
@@ -142,7 +142,20 @@ export default {
     },
     selectOptionSet() {
       return new Set(this.selectOption || []);
-    }
+    },
+    // 获取最长宽度字符宽度，根据字体大小计算
+    getStringVisualWidth() {
+      return (str) => {
+        str = String(str)
+        const chinesePattern = /[\u4e00-\u9fff]/g;
+        const otherPattern = /[0-9a-zA-Z.,;:!?'"、，；：！？""''（）【】{}_+=<>/@#$%^&*~`|\\-]/g;
+
+        const chineseCount = (str.match(chinesePattern) || []).length;
+        const otherCount = (str.match(otherPattern) || []).length;
+
+        return chineseCount * 14 + otherCount * 14;
+      }
+    },
   },
   watch: {
     filterText(value) {
@@ -387,7 +400,7 @@ export default {
       });
     },
     /* 点击全选、反选、子级全选、清空个按钮 */
-    onChecked: debounce(async function (type) {
+    onChecked: debounce(async function (type, callback) {
       try {
         this.dataGenerationLoading = true;
         await new Promise(resolve => {
@@ -478,6 +491,7 @@ export default {
               }
             }
             this.selectOption = finalSelection;
+            callback && callback(finalSelection);
           };
 
           // 3. 使用 requestAnimationFrame 优化性能
