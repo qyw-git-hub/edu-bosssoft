@@ -1,4 +1,5 @@
 <script>
+import { removalRepeat } from '../utils/common'
 export default {
   props: {
     index: {
@@ -16,12 +17,14 @@ export default {
     }
   },
   render() {
-    const btnList = []
+    let btnList = []
     const els = document.querySelectorAll(`.wCollapseButtonList${this.index} .el-button`)
     this.btnEls = els || []
     els.forEach((el, i) => {
       btnList[i] = { label: el.innerText, disabled: el.disabled }
     })
+    //去重处理，避免合并单元格出现多个情况
+    btnList = removalRepeat(btnList, 'label').list
     return [<div class="inline_block wCollapseButtons">
       <div class={['wCollapseButtonList', 'wCollapseButtonList' + this.index]}>
         {this.$slots.default}

@@ -184,3 +184,17 @@ export function copyText(text, successMsg = '复制成功', showTips = true) {
   document.body.removeChild(oInput);
   showTips && Message.success(successMsg);
 }
+
+/* 去重 */
+export function removalRepeat(arr, uniqueKey) {
+  let map = new Map();
+  let repeatItem = null;
+  for (let i of arr) {
+    if (!map.has(i[uniqueKey])) {
+      map.set(i[uniqueKey], i);
+    } else {
+      repeatItem = !repeatItem ? map.get(i[uniqueKey]) : null;
+    }
+  }
+  return { list: [...map.values()], repeatItem };
+}

@@ -507,9 +507,14 @@ export default {
     },
 
     /* 双击复制页脚金额 */
-    onFooterCellDblclick(data) {
-      const { cell, items, $columnIndex } = data
-      const value = items[$columnIndex]
+    onFooterCellDblclick(scope) {
+      this.$emit('footer-cell-dblclick', data);
+      if (!this.params.dbFooterData) {
+        return
+      }
+      const { $rowIndex, $columnIndex, cell } = scope
+      const data = this.params.dbFooterData()
+      const value = data[$rowIndex][$columnIndex]
       if (value && /\d/.test(value)) {
         cell.classList.add('dblclick_active')
         copyText(restoreSummaryFormatting(value), '复制成功!', true);
@@ -517,7 +522,6 @@ export default {
           cell.classList.remove('dblclick_active')
         }, 300);
       }
-      this.$emit('footer-cell-dblclick', data);
     }
   }
 };
