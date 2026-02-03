@@ -38,7 +38,7 @@ export default {
           visible: false,
           text: '禁用数据',
           tooltipText: '提示：点击一次即可查询禁用账单，再次点击取消禁用账单查询',
-          name: 'disabled'
+          name: 'disabled' //指定禁用数据的字段名
         }
       }
     },

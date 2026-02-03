@@ -1,4 +1,5 @@
 export default {
+  inheritAttrs: false,
   props: {
     limit: {
       type: String,

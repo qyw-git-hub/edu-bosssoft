@@ -14,11 +14,14 @@
           v-html="`${item[getParams.defineProps.operateUserTitle] || '操作人'}：${item[getParams.defineProps.operateUserName]}`"
         />
         <div
-          v-if="item[getParams.defineProps.remark]"
+          v-if="item[getParams.defineProps.remark] || $scopedSlots.remark"
           :class="['remark', getClass(item).color]"
         >
-        <p>{{ getParams.defineProps.remarkTitle }}{{ item[getParams.defineProps.remark] }}</p>
-        <slot name="remark" :item="item"></slot>
+          <div
+            v-if="item[getParams.defineProps.remark]"
+            class="remark_block"
+          >{{ getParams.defineProps.remarkTitle }}{{ item[getParams.defineProps.remark] }}</div>
+          <slot name="remark" :item="item"></slot>
         </div>
       </el-timeline-item>
     </el-timeline>
@@ -59,9 +62,6 @@ export default {
         }
       })
     }
-  },
-  data() {
-    return {}
   },
   computed: {
     // 获取传过来的参数

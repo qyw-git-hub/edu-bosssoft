@@ -1094,6 +1094,11 @@
     padding: 12px;
     border-left: 4px solid $gray;
     background: $gray-2;
+    >.remark_block{
+      &+.remark_block{
+        margin-top: 10px;
+      }
+    }
     &.primary,
     &.blue {
       background: $primary-1;
