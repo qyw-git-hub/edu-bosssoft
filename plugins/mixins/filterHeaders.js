@@ -344,9 +344,11 @@ export default {
         const request = rules.map(m => m.url(m.params))
         await Promise.all(request).then(results => {
           results.forEach((res, i) => {
-              const backdirectory = rules[i].backdirectory
-              const data = (backdirectory ? res.result[backdirectory] : res.result) || []
-              if (res.code == 1000) {
+            const backdirectory = rules[i].backdirectory // 若有backdirectory字段，则需要从结果中提取数据
+            const decryptCallback = rules[i].decrypt // 是否需要解密
+            const result = decryptCallback && decryptCallback(res.result) || res.result
+            const data = (backdirectory ? result[backdirectory] : result) || []
+            if (res.code == 1000) {
               const ruleMapping = rules[i].mapping || {}
               const mapping = { label: 'label', value: 'value', children: 'children', ...ruleMapping }
               const filterData = classFilter.filterTreeNode(data, mapping)

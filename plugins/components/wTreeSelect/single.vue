@@ -3,6 +3,7 @@
     <div class="mask" v-show="visible" @click="isShowPop"></div>
     <el-popover v-model="visible" v-bind="popoverAttrs" @hide="onPopoverHide">
       <el-input v-model="filterText" v-bind="inputAttrs" class="mb10" />
+      <slot name="header"></slot>
       <el-tree
         class="wDeptSelect_single_tree"
         :class="{ wDeptSelect_single_tree_disabled: treeAttrs.props.disabledText }"

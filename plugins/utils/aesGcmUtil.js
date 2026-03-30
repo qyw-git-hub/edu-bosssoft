@@ -1,8 +1,9 @@
+import forge from 'node-forge';
 /**
  * 基于 node-forge 的 AES-GCM 加密工具类
  * 对应 JAVA AesGcmUtil 类
  */
-export class AesGcmUtil {
+export default class AesGcmUtil {
   constructor(secretKey) {
     // 算法参数 (与Java端对齐)
     this.ALGORITHM = 'AES-GCM';

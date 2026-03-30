@@ -81,6 +81,7 @@ export default {
         'check-strictly': true,
         isShowProgress: false,
         hideChildBtn: false,
+        isClearDisabled: true,
         ...this.treeParams,
         /* 虚拟滚动需设置高度即生效 */
         height: isVirtual ? this.treeParams.treeHeight || '300px' : 'auto', //虚拟滚动区域高度
@@ -420,8 +421,14 @@ export default {
               case 'all': {
                 // 使用 Set 优化查找
                 const result = [];
+                const checked = new Set(this.$refs.tree.getCheckedKeys());
+                const isOpenDisabled = this.disabledBtnConfig.visible && this.disabledConfig.isChecked;
+                const disabledKey = this.disabledBtnConfig.name;
+
                 filterVisibleData.forEach(node => {
-                  if ((retainNum > 0 || !node.disabled)) {
+                  // 保留已禁用且已勾选的数据，或未被禁用的数据
+                  const isDisabled = isOpenDisabled ? node[disabledKey] : node.disabled;
+                  if ((retainNum > 0 || !isDisabled) || (isDisabled && checked.has(node[_nodeKey]))) {
                     result.push(node[_nodeKey]);
                   }
                 });
@@ -480,12 +487,23 @@ export default {
               }
               // 清空
               case 'clear': {
+                const checkedKeys = this.$refs.tree.getCheckedKeys();
+                const useKeys = checkStrictly ? checkedKeys : this.selection;
+                const isOpenDisabled = this.disabledBtnConfig.visible && this.disabledConfig.isChecked
+                const _disabled = isOpenDisabled ? this.disabledBtnConfig.name : this.getNodeField('disabled') || 'disabled';
+
                 if (this.retainNum > 0) {
-                  const checkedKeys = this.$refs.tree.getCheckedKeys();
-                  const useKeys = checkStrictly ? checkedKeys : this.selection;
                   finalSelection = useKeys.slice(0, retainNum);
                 } else {
                   finalSelection = [];
+                }
+
+                // 如果启用了禁用数据功能，过滤出禁用数据并保留
+                if (!this.treeAttrs.isClearDisabled) {
+                  const disabledKeys = this.dataAll
+                    .filter(item => item[_disabled] && useKeys.includes(item[_nodeKey]))
+                    .map(item => item[_nodeKey]);
+                  finalSelection = [...new Set([...finalSelection, ...disabledKeys])];
                 }
                 break;
               }
