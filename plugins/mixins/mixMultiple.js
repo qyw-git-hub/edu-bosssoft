@@ -441,9 +441,17 @@ export default {
                 const checked = new Set(this.$refs.tree.getCheckedKeys());
                 const result = [];
                 const resultSet = new Set();
+                const isOpenDisabled = this.disabledBtnConfig.visible && this.disabledConfig.isChecked;
+                const disabledKey = this.disabledBtnConfig.name;
+                const getIsDisabled = (node) => isOpenDisabled ? node[disabledKey] : node.disabled;
+                
                 filterVisibleData.forEach(node => {
                   const nodeValue = node[_nodeKey];
-                  if (!checked.has(nodeValue) || (node.disabled && checked.has(nodeValue))) {
+                  const isDisabled = getIsDisabled(node);
+                  const isChecked = checked.has(nodeValue);
+                  
+                  // 禁用数据：保留已选中的；非禁用数据：执行反选（未选中的才添加）
+                  if ((isDisabled && isChecked) || (!isDisabled && !isChecked)) {
                     if (checkStrictly || !node[_child] || !node[_child].length) {
                       result.push(nodeValue);
                       resultSet.add(nodeValue);
@@ -453,13 +461,14 @@ export default {
 
                 // 处理 retainNum 逻辑
                 if (retainNum > 0 && result.length < retainNum) {
-                  const remainingNodes = Array.from(filterVisibleData).filter(f => !resultSet.has(f[_nodeKey]));
-                  const lackQuantity = retainNum - result.length; //缺少个数
-                  // 父子不关联，直接取0至lackQuantity ：父子关联，过滤掉父级节点后，取0至lackQuantity
+                  const remainingNodes = Array.from(filterVisibleData).filter(f => {
+                    const nodeValue = f[_nodeKey];
+                    const isDisabled = getIsDisabled(f);
+                    return !resultSet.has(nodeValue) && !(isDisabled && checked.has(nodeValue));
+                  });
+                  const lackQuantity = retainNum - result.length;
                   const resNodes = checkStrictly ? remainingNodes : remainingNodes.filter(v => !v.containSubLevels);
-                  const endNodes = resNodes.slice(0, lackQuantity);
-                  const endKeys = endNodes.map(n => n[_nodeKey]);
-                  result.push(...endKeys);
+                  result.push(...resNodes.slice(0, lackQuantity).map(n => n[_nodeKey]));
                 }
                 finalSelection = result;
                 break;

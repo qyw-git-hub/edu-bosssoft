@@ -458,7 +458,11 @@ export default {
       }
       //切换每页条数时触发
       const sizeChange = limit => {
-        this.$emit('pagination', { page: this.pagination.page, limit });
+        let page = this.pagination.page
+        if (limit > this.pagination.total) {
+          page = 1
+        }
+        this.$emit('pagination', { page, limit });
       };
       //切换页码时触发
       const currentChange = page => {

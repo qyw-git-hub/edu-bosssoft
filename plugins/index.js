@@ -16,11 +16,12 @@ import wExmine from "./components/wExmine/index.vue";
 import svgIcon from "./components/svgIcon.vue";
 import wStep from "./components/step/index.vue";
 import wStepExmine from "./components/step/exmine.vue";
+import wStepExhibit from "./components/step/exhibit.vue";
 import selectLong from "./components/wDatePicker/selectLong.vue";
 import weekSelect from "./components/wDatePicker/weekSelect.vue";
 import wCollapseButtons from "./components/wCollapseButtons.vue";
 
-const components = [wTitle, wAlert, wSwitch, wTable, wDialog, filedView, wTreeSelectMult, wTreeSelectSingle, multipleLeft, multiInput, treeMultipleDialog, formItemGeneratorGoods, exmineWithProcess, wExmine, svgIcon, wStep, wStepExmine, selectLong, weekSelect, wCollapseButtons];
+const components = [wTitle, wAlert, wSwitch, wTable, wDialog, filedView, wTreeSelectMult, wTreeSelectSingle, multipleLeft, multiInput, treeMultipleDialog, formItemGeneratorGoods, exmineWithProcess, wExmine, svgIcon, wStep, wStepExmine, wStepExhibit, selectLong, weekSelect, wCollapseButtons];
 
 const install = (Vue) => {
   if (install.installed) return;
@@ -38,7 +39,7 @@ if (typeof window !== "undefined" && window.Vue) {
 }
 
 // 导出单个组件
-export { wTitle, wAlert, wSwitch, wTable, wDialog, filedView, wTreeSelectMult, wTreeSelectSingle, multipleLeft, multiInput, treeMultipleDialog, formItemGeneratorGoods, exmineWithProcess, wExmine, svgIcon, wStep, wStepExmine, selectLong, weekSelect, wCollapseButtons };
+export { wTitle, wAlert, wSwitch, wTable, wDialog, filedView, wTreeSelectMult, wTreeSelectSingle, multipleLeft, multiInput, treeMultipleDialog, formItemGeneratorGoods, exmineWithProcess, wExmine, svgIcon, wStep, wStepExmine, wStepExhibit, selectLong, weekSelect, wCollapseButtons };
 
 // 导出全部组件
 export default {
